@@ -1,13 +1,22 @@
 #include <gtest/gtest.h>
-#include "tlm_parser.h"
+#include "../include/tlm_parser.h"
 
-class TlmParserTest : public ::testing::Test {
-    protected:
-        Parser parser;
-};
+/* Test to see if detectPkts resolves true */
+TEST( TlmParserTest, DetectPktTestTrue ) {
+    Iface iface;
+    uint8_t bytes[12] = { 0xAB, 0xBA, 0xCF, 0xFC };
+    iface.setBytes( bytes );
+    Parser parser( iface );
+    EXPECT_TRUE( parser.detectPkt( 0xAB ) );
+}
 
-TEST_F( TlmParserTest, InitialTest ) {
-    EXPECT_TRUE(true)
+/* Test to see if detectPkts resolves false */
+TEST( TlmParserTest, DetectPktTestFalse ) {
+    Iface iface;
+    uint8_t bytes[12] = { 0xAA, 0xAA, 0xAA, 0xAA };
+    iface.setBytes( bytes );
+    Parser parser( iface );
+    EXPECT_FALSE( parser.detectPkt( 0xAB ) );
 }
 
 int main( int argc, char **argv ) {

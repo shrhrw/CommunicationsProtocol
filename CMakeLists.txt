@@ -1,8 +1,8 @@
 # Minimum version of CMake required to build this project
-cmake_minimum_required( VERSION 3.22.1 )
+cmake_minimum_required( VERSION 3.16.3 )
 
 # Name of project
-project( Parser LANGUAGES CXX C )
+project( TlmParser LANGUAGES CXX C )
 
 # CMake standard (C++11)
 set( CMAKE_CXX_STANDARD 11 )
@@ -28,12 +28,15 @@ include_directories(
 )
 
 # Add all the source files needed to build executable
+add_library( Iface STATIC src/iface.cpp )
 add_library( TlmParser STATIC src/tlm_parser.cpp )
 
 add_executable( TlmParserTests test/TlmParserTests.cpp )
 
 target_link_libraries(
     TlmParserTests
+    TlmParser   
+    Iface
     gtest_main
 )
 
