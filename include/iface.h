@@ -10,6 +10,7 @@ class Iface {
 
         void setBytes( uint8_t bytes[12] );
         uint8_t getByte();
+        bool existRcvData();
 
         uint8_t bytes[12];
         uint8_t counter;

@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <cstring>
 #include "iface.h"
 #include "tlm.h"
 
@@ -33,15 +34,35 @@ class Parser {
             NUMBER_OF_BYTES
         };
 
-        bool detectPkt( uint8_t byte );
-        int  extractData( CompoTlm_t tlm );
-        uint8_t maskBits( uint8_t numBits, uint8_t startBit, uint8_t byteNumber );
+        enum ErrorCodes {
+            VALID_PACKET = 0,
+            INVALID_PROTOCOL_VERSION,
+            INVALID_SUBSYS_ID,
+            INVALID_COMPO_ID,
+            INVALID_TLM_TYPE,
+            INVALID_RESERVED_VALUE,
+            INVALID_PAYLOAD_VALUE,
+            INVALID_CHECKSUM_VALUE
+        };
+
+        bool    detectPkt( uint8_t byte );
+        int     extractData( CompoTlm_t &tlm );
+        uint8_t reverseBits( uint8_t value );
+        uint8_t maskBits( uint8_t numBits, uint8_t startBit );
 
     /******************************************
      * Member Variables
      ******************************************/	
     public:
         uint8_t bytes[12];
+        uint8_t protocol_version;
+        uint8_t subsys_id;
+        uint8_t compo_id;
+        uint8_t tlm_type;
+        uint8_t reserved;
+        uint8_t checksum;
+        float   payload;
+
         Iface &iface;
 };
 
