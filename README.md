@@ -1,11 +1,19 @@
 # CommunicationsProtocol
-A sample Satellite Communications Protocol. 
+A sample Satellite Communications Protocol. This project parses a known packet of size 12 byes, verifies the packet contents, and updates the system with the verified packet. 
 
-To build, perform the following commands \n
-===========================================\n
-cmake -S. -Bbuild \n
-cd build \n
-make\n
+To build, use the following instruction set.
 
-To run UnitTests, perform the following command
+# Prepare the build folder by running CMake
+cmake -S. -Bbuild
+
+# Change directory to the build folder
+cd build
+
+# Make the project
+make
+
+# Run Unit Tests
 ./TlmParserTests
+
+# Alternatively, the project can be compiled and run with the following command
+./build_and_run.sh
